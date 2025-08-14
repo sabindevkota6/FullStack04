@@ -1,0 +1,133 @@
+.main-nav {
+  background-color: #000000; /* solid black navbar background */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); /* stronger shadow */
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 2rem; /* slightly reduced padding */
+}
+
+.nav-logo a {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ff5c1c; /* orange default */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.nav-logo a:hover {
+  color: #ffffff; /* white on hover */
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 2rem;
+  justify-content: center;
+  flex: 1;
+}
+
+.nav-links li a {
+  color: #ffffff; /* white nav links */
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+  padding: 0.5rem 0;
+  position: relative;
+}
+
+.nav-links li a:hover {
+  color: #ff5c1c; /* orange hover effect */
+}
+
+.nav-links li a.active {
+  color: #ff5c1c;
+}
+
+.nav-user {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.auth-button {
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.auth-button.login {
+  background-color: #555555;
+  color: #ffffff;
+}
+
+.auth-button.login:hover {
+  background-color: #444444;
+  color: #ff5c1c;
+}
+
+.auth-button.logout {
+  background-color: #555555;
+  color: #ffffff;
+}
+
+.auth-button.logout:hover {
+  background-color: #444444;
+  color: #ff5c1c;
+}
+
+.mobile-menu-toggle span {
+  background-color: #ffffff; /* white hamburger icon */
+}
+
+/* Responsive styles remain unchanged */
+@media (max-width: 768px) {
+  .nav-links {
+    background-color: #000000; /* black dropdown */
+  }
+  .nav-user.mobile-open {
+    background-color: #000000;
+    border-top: 1px solid #ff5c1c; /* orange divider */
+  }
+}
+
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  vertical-align: middle;
+  margin: 0;
+}
+
+.avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ff5c1c;
+  color: #e5ecee;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* reduce gap for compactness */
+  color: rgb(250, 248, 247);
+}

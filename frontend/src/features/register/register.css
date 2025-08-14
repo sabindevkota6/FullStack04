@@ -1,0 +1,63 @@
+.register-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #001d29; /* dark navy background */
+}
+
+h1 {
+  color: #f9f5f3;
+  margin-bottom: 20px;
+}
+
+.register-form {
+  width: 300px;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #000; /* black form background */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); /* noticeable shadow */
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.label-tag {
+  font-weight: bold;
+  color: #ede8e6;
+  padding-left: 5px;
+}
+
+.input-tag {
+  padding: 10px;
+  padding-left: 25px;
+  border: 1px solid;
+  border-radius: 5px;
+  background-color: #001d29;
+  color: #fff;
+}
+
+.input-tag:focus {
+  border-color: #ff0000; /* red on focus */
+  outline: none;
+}
+
+.submit-button {
+  background-color: #ff5c1c; /* orange button */
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.3s;
+}
+
+.submit-button:hover {
+  background-color: #ff0000; /* red hover */
+}
+
+.login-link {
+  color: #f0eeec;
+}
