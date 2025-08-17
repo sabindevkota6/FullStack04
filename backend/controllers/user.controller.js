@@ -33,6 +33,7 @@ export const updateUserProfile = async (req, res) => {
       contact,
       experiences,
       education,
+      certificates,
     } = req.body;
 
     // Basic validation
@@ -62,6 +63,7 @@ export const updateUserProfile = async (req, res) => {
       contact,
       experiences,
       education,
+      certificates,
     };
 
     const updatedUser = await User.findByIdAndUpdate(userId, updateData, {
@@ -84,6 +86,7 @@ export const updateUserProfile = async (req, res) => {
       contact: updatedUser.contact,
       experiences: updatedUser.experiences,
       education: updatedUser.education,
+      certificates: updatedUser.certificates,
     };
 
     res.status(200).json(formattedUser);

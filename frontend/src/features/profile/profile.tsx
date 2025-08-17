@@ -77,34 +77,37 @@ const Profile: React.FC = () => {
     }
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    if (!formData) return;
-    const { name, value } = e.target;
+const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  if (!formData) return;
+  const { name, value } = e.target;
+  
+  if (name.includes('.')) {
+    const [parent, child] = name.split('.');
+    const parentKey = parent as keyof IUser;
+    const currentParent = formData[parentKey];
     
-    if (name.includes('.')) {
-      const [parent, child] = name.split('.');
-      const parentKey = parent as keyof IUser;
-      const currentParent = formData[parentKey];
-      
-      if (currentParent && typeof currentParent === 'object' && !Array.isArray(currentParent)) {
-        setFormData({
-          ...formData,
-          [parent]: {
-            ...currentParent,
-            [child]: value
-          }
-        });
-      }
+    // Check if parent exists and is an object, if not create an empty object
+    if (currentParent && typeof currentParent === 'object' && !Array.isArray(currentParent)) {
+      setFormData({
+        ...formData,
+        [parent]: {
+          ...currentParent,
+          [child]: value
+        }
+      });
     } else {
-      setFormData({ ...formData, [name]: value });
+      // Create the parent object if it doesn't exist
+      setFormData({
+        ...formData,
+        [parent]: {
+          [child]: value
+        }
+      });
     }
-  };
-
-  const handleSkillsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!formData) return;
-    const skills = e.target.value.split(',').map(s => s.trim()).filter(s => s);
-    setFormData({ ...formData, skills });
-  };
+  } else {
+    setFormData({ ...formData, [name]: value });
+  }
+};
 
   const addSkill = () => {
     if (!formData) return;

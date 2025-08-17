@@ -1,4 +1,4 @@
-/* frontend/src/features/home/home.css - Basic enhanced styles */
+/* frontend/src/features/home/home.css - Basic enhanced styles with larger avatar and username */
 
 body {
   background-color: #212628;
@@ -83,14 +83,14 @@ body {
 
 .users-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 2rem;
 }
 
 .user-card {
   background-color: #000;
   border-radius: 12px;
-  padding: 1.5rem;
+  padding: 2rem 1.5rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   display: flex;
   flex-direction: column;
@@ -105,12 +105,12 @@ body {
 }
 
 .user-avatar {
-  width: 80px;
-  height: 80px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   overflow: hidden;
-  margin-bottom: 1rem;
-  border: 2px solid #ff5c1c;
+  margin-bottom: 1.5rem;
+  border: 3px solid #ff5c1c;
 }
 
 .user-avatar img {
@@ -127,14 +127,16 @@ body {
   justify-content: center;
   background-color: #ff5c1c;
   color: #000;
-  font-size: 2rem;
+  font-size: 3rem;
   font-weight: bold;
 }
 
 .user-name {
-  margin: 0 0 0.25rem 0;
+  margin: 0 0 0.5rem 0;
   color: #fff;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
 }
 
 .user-email {
@@ -246,6 +248,19 @@ body {
   .search-form {
     flex-direction: column;
   }
+  .users-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+  .user-avatar {
+    width: 100px;
+    height: 100px;
+  }
+  .avatar-placeholder {
+    font-size: 2.5rem;
+  }
+  .user-name {
+    font-size: 1.3rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -254,5 +269,15 @@ body {
   }
   .users-grid {
     grid-template-columns: 1fr;
+  }
+  .user-avatar {
+    width: 90px;
+    height: 90px;
+  }
+  .avatar-placeholder {
+    font-size: 2.2rem;
+  }
+  .user-name {
+    font-size: 1.2rem;
   }
 }
