@@ -1,3 +1,5 @@
+// frontend/src/features/home/home.tsx - Updated with basic lightweight details
+
 import { useState, useEffect, type ChangeEvent, type FormEvent } from 'react';
 import { getUserList, searchUsers } from '../../shared/config/api';
 import './home.css';
@@ -7,6 +9,14 @@ interface User {
   username: string;
   email: string;
   avatar?: string;
+  bio?: string;
+  skills?: string[];
+  location?: string;
+  quickStats?: {
+    connections: number;
+    projects: number;
+    endorsements: number;
+  };
 }
 
 function Home() {
@@ -120,8 +130,41 @@ function Home() {
                                     </div>
                                 )}
                             </div>
+                            
                             <h3 className="user-name">{user.username}</h3>
                             <p className="user-email">{user.email}</p>
+                            
+                            {user.location && (
+                                <p className="user-location">📍 {user.location}</p>
+                            )}
+                            
+                            {user.bio && (
+                                <p className="user-bio">{user.bio}</p>
+                            )}
+                            
+                            {user.skills && user.skills.length > 0 && (
+                                <div className="user-skills">
+                                    {user.skills.slice(0, 3).map((skill, index) => (
+                                        <span key={index} className="skill-tag">
+                                            {skill}
+                                        </span>
+                                    ))}
+                                </div>
+                            )}
+                            
+                            {user.quickStats && (
+                                <div className="user-stats">
+                                    <div className="stat">
+                                        <span className="stat-number">{user.quickStats.connections}</span>
+                                        <span className="stat-label">Connections</span>
+                                    </div>
+                                    <div className="stat">
+                                        <span className="stat-number">{user.quickStats.projects}</span>
+                                        <span className="stat-label">Projects</span>
+                                    </div>
+                                </div>
+                            )}
+                            
                             <button className="connect-button">Connect</button>
                         </div>
                     ))}

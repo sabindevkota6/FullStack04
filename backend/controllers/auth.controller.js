@@ -63,15 +63,25 @@ export const logout = async (req, res) => {
   }
 };
 
+// backend/controllers/auth.controller.js - Conservative update keeping your existing structure
+
 export async function getUserList(req, res) {
   try {
-    const users = await User.find({}, "username email");
+    // Keep the same structure as before, just add a few more fields
+    const users = await User.find(
+      {},
+      "username email bio skills quickStats contact"
+    );
 
     // Format the response to match the frontend's expected structure
     const formattedUsers = users.map((user) => ({
       id: user._id,
       username: user.username,
       email: user.email,
+      bio: user.bio,
+      skills: user.skills,
+      location: user.contact ? user.contact.location : null,
+      quickStats: user.quickStats,
     }));
 
     res.status(200).json(formattedUsers);
@@ -81,7 +91,7 @@ export async function getUserList(req, res) {
   }
 }
 
-// Get all users
+// Get all users - keep the same structure as your original
 export const getAllUsers = async (req, res) => {
   try {
     // Find all users but exclude password field
@@ -92,6 +102,10 @@ export const getAllUsers = async (req, res) => {
       id: user._id,
       username: user.username,
       email: user.email,
+      bio: user.bio,
+      skills: user.skills,
+      location: user.contact ? user.contact.location : null,
+      quickStats: user.quickStats,
     }));
 
     return res.status(200).json(formattedUsers);
@@ -103,7 +117,7 @@ export const getAllUsers = async (req, res) => {
   }
 };
 
-// Search users by username
+// Search users by username - keep the same structure
 export const searchUsers = async (req, res) => {
   try {
     const { query } = req.query;
@@ -123,6 +137,10 @@ export const searchUsers = async (req, res) => {
       id: user._id,
       username: user.username,
       email: user.email,
+      bio: user.bio,
+      skills: user.skills,
+      location: user.contact ? user.contact.location : null,
+      quickStats: user.quickStats,
     }));
 
     return res.status(200).json(formattedUsers);
