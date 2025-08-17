@@ -61,6 +61,15 @@ body {
   color: #fff;
 }
 
+/* Add visual indicator for viewing other profiles */
+.profile-header.viewing-other {
+  border-bottom-color: #4a90e2;
+}
+
+.profile-header.viewing-other h1 {
+  color: #4a90e2;
+}
+
 /* Sections */
 .section {
   background-color: #000;
@@ -92,6 +101,29 @@ body {
   margin: 0 0 1rem 0;
   padding-bottom: 0.5rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.subsection-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.btn-add {
+  background-color: transparent;
+  color: #ff5c1c;
+  border: 1px solid #ff5c1c;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-add:hover {
+  background-color: #ff5c1c;
+  color: #fff;
 }
 
 /* Personal Section */
@@ -171,6 +203,32 @@ body {
 .form-group textarea:focus {
   outline: none;
   border-color: #ff0000;
+}
+
+.skills-edit {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.skill-input {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.skill-input input {
+  flex: 1;
+}
+
+.skill-input button {
+  background-color: #ff0000;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-weight: bold;
 }
 
 /* Display */
@@ -288,6 +346,49 @@ body {
 
 .cert-link:hover {
   text-decoration: underline;
+}
+
+/* Edit Items */
+.edit-items {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.edit-item {
+  background-color: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  padding: 1.5rem;
+  border-left: 3px solid #ff5c1c;
+}
+
+.edit-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.edit-item-header h4 {
+  color: #ff5c1c;
+  margin: 0;
+}
+
+.btn-remove {
+  background-color: #ff0000;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-remove:hover {
+  background-color: #cc0000;
 }
 
 /* Stats */

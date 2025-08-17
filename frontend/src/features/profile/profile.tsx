@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import axios from "../../shared/config/axiosinstance";
 import { toast } from "react-toastify";
 import "./profile.css";
@@ -54,20 +55,48 @@ interface Certificate {
 }
 
 const Profile: React.FC = () => {
+  const { userId } = useParams<{ userId: string }>();
   const [user, setUser] = useState<IUser | null>(null);
   const [editMode, setEditMode] = useState(false);
   const [formData, setFormData] = useState<IUser | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [currentUser, setCurrentUser] = useState<any>(null);
+  const [isOwnProfile, setIsOwnProfile] = useState(true);
 
   useEffect(() => {
+    // Get current user data
+    const userString = localStorage.getItem('currentUser');
+    if (userString) {
+      try {
+        const userData = JSON.parse(userString);
+        setCurrentUser(userData);
+      } catch (error) {
+        console.error('Error parsing user data:', error);
+      }
+    }
+    
     fetchUser();
-  }, []);
+  }, [userId]);
+
+  useEffect(() => {
+    // Determine if this is the current user's own profile
+    if (currentUser && user) {
+      setIsOwnProfile(!userId || userId === currentUser._id);
+    }
+  }, [currentUser, user, userId]);
 
   const fetchUser = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("/users/profile");
+      let res;
+      if (userId) {
+        // Fetch specific user by ID
+        res = await axios.get(`/users/${userId}`);
+      } else {
+        // Fetch current user's profile
+        res = await axios.get("/users/profile");
+      }
       setUser(res.data);
       setFormData(res.data);
     } catch (err: any) {
@@ -267,20 +296,22 @@ const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaE
     <div className="profile-page">
       {/* Header */}
       <div className="profile-header">
-        <h1>My Profile</h1>
-        <div className="header-buttons">
-          <button 
-            className="btn-secondary"
-            onClick={() => editMode ? setEditMode(false) : setEditMode(true)}
-          >
-            {editMode ? 'Cancel' : 'Edit Profile'}
-          </button>
-          {editMode && (
-            <button className="btn-primary" onClick={handleSave}>
-              Save Changes
+        <h1>{isOwnProfile ? 'My Profile' : `${user.username}'s Profile`}</h1>
+        {isOwnProfile && (
+          <div className="header-buttons">
+            <button 
+              className="btn-secondary"
+              onClick={() => editMode ? setEditMode(false) : setEditMode(true)}
+            >
+              {editMode ? 'Cancel' : 'Edit Profile'}
             </button>
-          )}
-        </div>
+            {editMode && (
+              <button className="btn-primary" onClick={handleSave}>
+                Save Changes
+              </button>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Personal Section */}
@@ -300,7 +331,7 @@ const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaE
           </div>
           
           <div className="personal-details">
-            {editMode ? (
+            {editMode && isOwnProfile ? (
               <div className="form-grid">
                 <div className="form-group">
                   <label>Name</label>
@@ -426,12 +457,12 @@ const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaE
         <div className="subsection">
           <div className="subsection-header">
             <h3>Education</h3>
-            {editMode && (
+            {editMode && isOwnProfile && (
               <button onClick={addEducation} className="btn-add">+ Add Education</button>
             )}
           </div>
           
-          {editMode ? (
+          {editMode && isOwnProfile ? (
             <div className="edit-items">
               {formData?.education?.map((edu, index) => (
                 <div key={index} className="edit-item">
@@ -526,12 +557,12 @@ const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaE
         <div className="subsection">
           <div className="subsection-header">
             <h3>Certifications</h3>
-            {editMode && (
+            {editMode && isOwnProfile && (
               <button onClick={addCertificate} className="btn-add">+ Add Certificate</button>
             )}
           </div>
           
-          {editMode ? (
+          {editMode && isOwnProfile ? (
             <div className="edit-items">
               {formData?.certificates?.map((cert, index) => (
                 <div key={index} className="edit-item">
@@ -614,12 +645,12 @@ const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaE
         <div className="subsection">
           <div className="subsection-header">
             <h3>Work Experience</h3>
-            {editMode && (
+            {editMode && isOwnProfile && (
               <button onClick={addExperience} className="btn-add">+ Add Experience</button>
             )}
           </div>
           
-          {editMode ? (
+          {editMode && isOwnProfile ? (
             <div className="edit-items">
               {formData?.experiences?.map((exp, index) => (
                 <div key={index} className="edit-item">
@@ -713,7 +744,7 @@ const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaE
 
         <div className="subsection">
           <h3>Quick Stats</h3>
-          {editMode ? (
+          {editMode && isOwnProfile ? (
             <div className="stats-edit">
               <div className="stat-input">
                 <label>Connections</label>

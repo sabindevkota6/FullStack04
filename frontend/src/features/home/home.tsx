@@ -1,6 +1,7 @@
-// frontend/src/features/home/home.tsx - Updated with basic lightweight details
+// frontend/src/features/home/home.tsx - Updated with profile navigation
 
 import { useState, useEffect, type ChangeEvent, type FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { getUserList, searchUsers } from '../../shared/config/api';
 import './home.css';
 
@@ -20,6 +21,7 @@ interface User {
 }
 
 function Home() {
+    const navigate = useNavigate();
     const [searchQuery, setSearchQuery] = useState('');
     const [users, setUsers] = useState<User[]>([]);
     const [loading, setLoading] = useState(false);
@@ -81,6 +83,17 @@ function Home() {
             setError('Failed to search users. Please try again later.');
         } finally {
             setLoading(false);
+        }
+    };
+
+    // Handle connect button click
+    const handleConnectClick = (userId: string) => {
+        if (currentUser && userId === currentUser._id) {
+            // If it's the current user, go to their own profile
+            navigate('/profile');
+        } else {
+            // If it's another user, go to their profile view
+            navigate(`/user/${userId}`);
         }
     };
 
@@ -165,7 +178,12 @@ function Home() {
                                 </div>
                             )}
                             
-                            <button className="connect-button">Connect</button>
+                            <button 
+                                className="connect-button"
+                                onClick={() => handleConnectClick(user.id)}
+                            >
+                                {currentUser && user.id === currentUser._id ? 'View Profile' : 'View Profile'}
+                            </button>
                         </div>
                     ))}
                 </div>

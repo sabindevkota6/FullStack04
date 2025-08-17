@@ -361,6 +361,7 @@ export const getUserById = async (req, res) => {
       contact: user.contact,
       experiences: user.experiences,
       education: user.education,
+      certificates: user.certificates,
     };
 
     res.status(200).json(formattedUser);
