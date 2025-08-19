@@ -360,7 +360,7 @@ export const getUserById = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Formatring response to match frontend requirements
+    // Formatting response to match frontend requirements
     const formattedUser = {
       id: user._id,
       username: user.username,

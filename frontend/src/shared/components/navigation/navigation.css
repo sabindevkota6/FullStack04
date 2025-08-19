@@ -72,8 +72,10 @@
 }
 
 .auth-button.login {
-  background-color: #555555;
+  background-color: #001d29;
   color: #ffffff;
+  font-style: bold;
+  border: 2px solid #ff5c1c;
 }
 
 .auth-button.login:hover {
@@ -82,8 +84,10 @@
 }
 
 .auth-button.logout {
-  background-color: #555555;
+  background-color: #001d29;
   color: #ffffff;
+  font-style: bold;
+  border: 2px solid #ff5c1c;
 }
 
 .auth-button.logout:hover {
