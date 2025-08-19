@@ -15,6 +15,12 @@ import {
 import { authMiddleware } from "../middleware/auth.middleware.js";
 import { getAllUsers, searchUsers } from "../controllers/auth.controller.js";
 
+import {
+  uploadProfilePicture,
+  deleteProfilePicture,
+} from "../controllers/profile-picture.controller.js";
+import { upload } from "../middleware/image-uploader.middleware.js";
+
 const router = Router();
 
 // Get all users
@@ -42,5 +48,14 @@ router.get("/:id", authMiddleware, getUserById);
 
 // Update user by ID (optional, for admin/self-edit by ID)
 router.put("/:id", authMiddleware, updateUserProfile);
+
+router.patch(
+  "/uploadProfilePic",
+  authMiddleware,
+  upload.single("image"),
+  uploadProfilePicture
+);
+
+router.delete("/deleteProfilePicture", authMiddleware, deleteProfilePicture);
 
 export default router;

@@ -38,6 +38,10 @@ const userSchema = new Schema({
   password: { type: String, required: true },
   bio: String,
   avatar: String,
+  profilePicture: {
+    url: String,
+    public_id: String,
+  },
   skills: [String],
   quickStats: {
     connections: { type: Number, default: 0 },
