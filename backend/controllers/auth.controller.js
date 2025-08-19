@@ -7,7 +7,7 @@ export async function register(req, res) {
   try {
     const { username, email, password } = req.body;
 
-    // Check if user already exists
+    // checking if user already exists
     const existingUser = await User.findOne({ username });
     if (existingUser)
       return res.status(400).send({ message: "User already exists" });
@@ -27,16 +27,16 @@ export async function login(req, res) {
   try {
     const { username, password } = req.body;
 
-    // Check if user exists
+    // checking if user exists
     const user = await User.findOne({ username });
     if (!user)
       return res.status(400).send({ message: "Invalid username or password" });
-    // Check password
+    // checking password
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid)
       return res.status(400).send({ message: "Invalid username or password" });
 
-    // Generate JWT token
+    // generating JWT token
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
@@ -51,8 +51,7 @@ export async function login(req, res) {
 export const logout = async (req, res) => {
   try {
     clearImmediate(req.session);
-    // Optionally, you can also clear the token from the client side
-    // For example, if you're using localStorage:
+
     localStorage.removeItem("token");
     return res.status(200).json({ message: "Logged out successfully" });
   } catch (error) {
@@ -63,13 +62,11 @@ export const logout = async (req, res) => {
   }
 };
 
-// backend/controllers/auth.controller.js - Conservative update keeping your existing structure
-
 export async function getUserList(req, res) {
   try {
     const users = await User.find(
       {},
-      "username email bio skills quickStats contact profilePicture" // ADDED profilePicture
+      "username email bio skills quickStats contact profilePicture"
     );
 
     const formattedUsers = users.map((user) => ({
@@ -77,7 +74,7 @@ export async function getUserList(req, res) {
       username: user.username,
       email: user.email,
       bio: user.bio,
-      profilePicture: user.profilePicture, // UPDATED to use profilePicture.url
+      profilePicture: user.profilePicture,
       skills: user.skills,
       location: user.contact ? user.contact.location : null,
       quickStats: user.quickStats,
@@ -99,7 +96,7 @@ export const getAllUsers = async (req, res) => {
       username: user.username,
       email: user.email,
       bio: user.bio,
-      profilePicture: user.profilePicture, // UPDATED to use profilePicture.url
+      profilePicture: user.profilePicture,
       skills: user.skills,
       location: user.contact ? user.contact.location : null,
       quickStats: user.quickStats,
@@ -132,7 +129,7 @@ export const searchUsers = async (req, res) => {
       username: user.username,
       email: user.email,
       bio: user.bio,
-      profilePicture: user.profilePicture, // UPDATED to use profilePicture.url
+      profilePicture: user.profilePicture,
       skills: user.skills,
       location: user.contact ? user.contact.location : null,
       quickStats: user.quickStats,

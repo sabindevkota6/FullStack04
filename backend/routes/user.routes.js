@@ -1,5 +1,3 @@
-// Backend/routes/user.routes.js
-
 import { Router } from "express";
 import {
   getUserProfile,

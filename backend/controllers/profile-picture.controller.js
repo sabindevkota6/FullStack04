@@ -1,4 +1,3 @@
-// backend/controllers/profile-picture.controller.js - FIXED
 import User from "../models/user.model.js";
 import { uploadBufferToCloudinary } from "../middleware/image-uploader.middleware.js";
 import cloudinary from "../config/cloudinary.config.js";
@@ -8,7 +7,7 @@ export async function uploadProfilePicture(req, res) {
     if (!req.file) throw new Error("No file uploaded");
 
     // Delete old profile picture from Cloudinary if it exists
-    const user = await User.findById(req.user.userId); // FIXED: use userId instead of id
+    const user = await User.findById(req.user.userId);
     if (user && user.profilePicture && user.profilePicture.public_id) {
       try {
         await cloudinary.uploader.destroy(user.profilePicture.public_id);
@@ -19,16 +18,16 @@ export async function uploadProfilePicture(req, res) {
 
     const result = await uploadBufferToCloudinary(req.file.buffer, {
       folder: "profilepic",
-      public_id: `user_${req.user.userId}`, // FIXED: use userId instead of id
+      public_id: `user_${req.user.userId}`,
       transformation: [
         { width: 400, height: 400, crop: "fill", gravity: "face" },
         { quality: "auto", fetch_format: "auto" },
       ],
     });
 
-    //Save image details to MongoDB
+    // Save image details to MongoDB
     const updatedUser = await User.findByIdAndUpdate(
-      req.user.userId, // FIXED: use userId instead of id
+      req.user.userId,
       {
         profilePicture: { url: result.secure_url, public_id: result.public_id },
       },
@@ -48,7 +47,7 @@ export async function uploadProfilePicture(req, res) {
 
 export async function deleteProfilePicture(req, res) {
   try {
-    const user = await User.findById(req.user.userId); // FIXED: use userId instead of id
+    const user = await User.findById(req.user.userId);
     if (!user || !user.profilePicture)
       throw new Error("No profile picture found");
 

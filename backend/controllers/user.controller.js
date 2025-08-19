@@ -1,25 +1,21 @@
 import User from "../models/user.model.js";
 
-// Get user profile
 export const getUserProfile = async (req, res) => {
   try {
-    const userId = req.user.userId; // from auth middleware
+    const userId = req.user.userId;
 
-    const user = await User.findById(userId)
-      .select("-password") // exclude password from response
-      .lean(); // convert to plain JS object
+    const user = await User.findById(userId).select("-password").lean();
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Format response to match frontend requirements (same as other functions)
     const formattedUser = {
       id: user._id,
       username: user.username,
       email: user.email,
       bio: user.bio,
-      profilePicture: user.profilePicture, // ADDED: Include profile picture
+      profilePicture: user.profilePicture,
       skills: user.skills,
       quickStats: user.quickStats,
       contact: user.contact,
@@ -35,10 +31,9 @@ export const getUserProfile = async (req, res) => {
   }
 };
 
-// Update user profile
 export const updateUserProfile = async (req, res) => {
   try {
-    const userId = req.user.userId; // from auth middleware
+    const userId = req.user.userId;
     const {
       username,
       email,
@@ -51,14 +46,13 @@ export const updateUserProfile = async (req, res) => {
       certificates,
     } = req.body;
 
-    // Basic validation
     if (!username || !email) {
       return res
         .status(400)
         .json({ message: "Username and email are required" });
     }
 
-    // Check if email is already in use by another user
+    // Checking if email is already in use by another user
     const existingUser = await User.findOne({
       email,
       _id: { $ne: userId },
@@ -68,7 +62,7 @@ export const updateUserProfile = async (req, res) => {
       return res.status(400).json({ message: "Email is already in use" });
     }
 
-    // Update profile info including experiences and education
+    // Updating profile info including experiences and education
     const updateData = {
       username,
       email,
@@ -90,7 +84,7 @@ export const updateUserProfile = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Format response to match frontend requirements
+    // Formatting response to match frontend requirements
     const formattedUser = {
       id: updatedUser._id,
       username: updatedUser.username,
@@ -148,7 +142,7 @@ export const addExperience = async (req, res) => {
       description,
     };
 
-    user.experiences.unshift(newExperience); // Add to beginning of array
+    user.experiences.unshift(newExperience);
     await user.save();
 
     res.status(201).json(user.experiences[0]);
@@ -185,7 +179,7 @@ export const updateExperience = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Find experience index
+    // Finding experience index
     const expIndex = user.experiences.findIndex(
       (exp) => exp._id.toString() === experienceId
     );
@@ -226,7 +220,7 @@ export const deleteExperience = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Filter out the experience to delete
+    // Filtering out the experience to delete
     user.experiences = user.experiences.filter(
       (exp) => exp._id.toString() !== experienceId
     );
@@ -269,7 +263,7 @@ export const addEducation = async (req, res) => {
       description,
     };
 
-    user.education.unshift(newEducation); // Add to beginning of array
+    user.education.unshift(newEducation);
     await user.save();
 
     res.status(201).json(user.education[0]);
@@ -299,7 +293,7 @@ export const updateEducation = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Find education index
+    // Finding education index
     const eduIndex = user.education.findIndex(
       (edu) => edu._id.toString() === educationId
     );
@@ -340,7 +334,7 @@ export const deleteEducation = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Filter out the education to delete
+    // Filtering out the education to delete
     user.education = user.education.filter(
       (edu) => edu._id.toString() !== educationId
     );
@@ -359,14 +353,14 @@ export const getUserById = async (req, res) => {
   try {
     const userId = req.params.id;
 
-    // Find user by ID, exclude password
+    // Finding user by ID and excluding password
     const user = await User.findById(userId).select("-password").lean();
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Format response to match frontend requirements
+    // Formatring response to match frontend requirements
     const formattedUser = {
       id: user._id,
       username: user.username,
