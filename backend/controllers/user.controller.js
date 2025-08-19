@@ -13,7 +13,22 @@ export const getUserProfile = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    res.status(200).json(user);
+    // Format response to match frontend requirements (same as other functions)
+    const formattedUser = {
+      id: user._id,
+      username: user.username,
+      email: user.email,
+      bio: user.bio,
+      profilePicture: user.profilePicture, // ADDED: Include profile picture
+      skills: user.skills,
+      quickStats: user.quickStats,
+      contact: user.contact,
+      experiences: user.experiences,
+      education: user.education,
+      certificates: user.certificates,
+    };
+
+    res.status(200).json(formattedUser);
   } catch (error) {
     console.error("Error getting user profile:", error);
     res.status(500).json({ message: "Server error" });
@@ -81,6 +96,7 @@ export const updateUserProfile = async (req, res) => {
       username: updatedUser.username,
       email: updatedUser.email,
       bio: updatedUser.bio,
+      profilePicture: updatedUser.profilePicture,
       skills: updatedUser.skills,
       quickStats: updatedUser.quickStats,
       contact: updatedUser.contact,
@@ -356,6 +372,7 @@ export const getUserById = async (req, res) => {
       username: user.username,
       email: user.email,
       bio: user.bio,
+      profilePicture: user.profilePicture,
       skills: user.skills,
       quickStats: user.quickStats,
       contact: user.contact,

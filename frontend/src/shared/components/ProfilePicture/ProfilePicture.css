@@ -1,0 +1,154 @@
+/* frontend/src/shared/components/ProfilePicture/ProfilePicture.css */
+
+.profile-picture-container {
+  position: relative;
+  display: inline-block;
+}
+
+.profile-picture-wrapper {
+  position: relative;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #ff5c1c;
+  transition: all 0.3s ease;
+}
+
+.profile-picture-container:hover .profile-picture-wrapper {
+  border-color: #ff0000;
+}
+
+/* Size variants */
+.profile-picture-small .profile-picture-wrapper {
+  width: 60px;
+  height: 60px;
+  border-width: 2px;
+}
+
+.profile-picture-medium .profile-picture-wrapper {
+  width: 120px;
+  height: 120px;
+}
+
+.profile-picture-large .profile-picture-wrapper {
+  width: 180px;
+  height: 180px;
+  border-width: 4px;
+}
+
+.profile-picture-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.profile-picture-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ff5c1c;
+  color: #000;
+  font-weight: bold;
+}
+
+.profile-picture-small .profile-picture-placeholder {
+  font-size: 1.5rem;
+}
+
+.profile-picture-medium .profile-picture-placeholder {
+  font-size: 3rem;
+}
+
+.profile-picture-large .profile-picture-placeholder {
+  font-size: 4.5rem;
+}
+
+/* Overlay for editable mode */
+.profile-picture-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 50%;
+}
+
+.profile-picture-container:hover .profile-picture-overlay {
+  opacity: 1;
+}
+
+.picture-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.picture-action-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: all 0.2s ease;
+  color: white;
+}
+
+.picture-action-btn:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.upload-btn:hover {
+  background-color: rgba(255, 92, 28, 0.8);
+}
+
+.delete-btn:hover {
+  background-color: rgba(255, 0, 0, 0.8);
+}
+
+.uploading-spinner {
+  font-size: 2rem;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.hidden-file-input {
+  display: none;
+}
+
+/* Small size adjustments */
+.profile-picture-small .picture-action-btn {
+  font-size: 0.8rem;
+  padding: 0.25rem;
+}
+
+.profile-picture-small .uploading-spinner {
+  font-size: 1rem;
+}
+
+/* Large size adjustments */
+.profile-picture-large .picture-action-btn {
+  font-size: 1.5rem;
+  padding: 0.75rem;
+}
+
+.profile-picture-large .uploading-spinner {
+  font-size: 3rem;
+}

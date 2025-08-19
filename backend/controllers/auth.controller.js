@@ -67,18 +67,17 @@ export const logout = async (req, res) => {
 
 export async function getUserList(req, res) {
   try {
-    // Keep the same structure as before, just add a few more fields
     const users = await User.find(
       {},
-      "username email bio skills quickStats contact"
+      "username email bio skills quickStats contact profilePicture" // ADDED profilePicture
     );
 
-    // Format the response to match the frontend's expected structure
     const formattedUsers = users.map((user) => ({
       id: user._id,
       username: user.username,
       email: user.email,
       bio: user.bio,
+      avatar: user.profilePicture?.url, // UPDATED to use profilePicture.url
       skills: user.skills,
       location: user.contact ? user.contact.location : null,
       quickStats: user.quickStats,
@@ -91,18 +90,16 @@ export async function getUserList(req, res) {
   }
 }
 
-// Get all users - keep the same structure as your original
 export const getAllUsers = async (req, res) => {
   try {
-    // Find all users but exclude password field
     const users = await User.find({}, { password: 0 });
 
-    // Format the response to match your frontend interface
     const formattedUsers = users.map((user) => ({
       id: user._id,
       username: user.username,
       email: user.email,
       bio: user.bio,
+      avatar: user.profilePicture?.url, // UPDATED to use profilePicture.url
       skills: user.skills,
       location: user.contact ? user.contact.location : null,
       quickStats: user.quickStats,
@@ -117,7 +114,6 @@ export const getAllUsers = async (req, res) => {
   }
 };
 
-// Search users by username - keep the same structure
 export const searchUsers = async (req, res) => {
   try {
     const { query } = req.query;
@@ -126,18 +122,17 @@ export const searchUsers = async (req, res) => {
       return res.status(400).json({ message: "Search query is required" });
     }
 
-    // Case-insensitive search for username
     const users = await User.find(
       { username: { $regex: query, $options: "i" } },
       { password: 0 }
     );
 
-    // Format the response
     const formattedUsers = users.map((user) => ({
       id: user._id,
       username: user.username,
       email: user.email,
       bio: user.bio,
+      avatar: user.profilePicture?.url, // UPDATED to use profilePicture.url
       skills: user.skills,
       location: user.contact ? user.contact.location : null,
       quickStats: user.quickStats,

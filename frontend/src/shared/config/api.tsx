@@ -52,3 +52,18 @@ export const getUserList = () => {
 export const searchUsers = (query: string) => {
   return axiosInstance.get(`/users/search?query=${query}`); // Use /users/search, not /auth/search
 };
+
+export const uploadProfilePicture = (imageFile: File) => {
+  const formData = new FormData();
+  formData.append('image', imageFile);
+  
+  return axiosInstance.patch('/users/uploadProfilePic', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+};
+
+export const deleteProfilePicture = () => {
+  return axiosInstance.delete('/users/deleteProfilePicture');
+};

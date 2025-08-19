@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "../../shared/config/axiosinstance";
 import { toast } from "react-toastify";
 import "./profile.css";
+import ProfilePicture from "../../shared/components/ProfilePicture/ProfilePicture";
 
 interface IUser {
   _id?: string;
@@ -10,6 +11,10 @@ interface IUser {
   email: string;
   bio?: string;
   avatar?: string;
+  profilePicture?: {
+    url: string;
+    public_id: string;
+  } | null;
   skills?: string[];
   quickStats?: {
     connections: number;
@@ -25,6 +30,7 @@ interface IUser {
   education?: any[];
   certificates?: any[];
 }
+
 
 interface Education {
   degree: string;
@@ -135,6 +141,38 @@ const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaE
     }
   } else {
     setFormData({ ...formData, [name]: value });
+  }
+};
+
+const handleImageUpdate = (newImage: { url: string; public_id: string } | null) => {
+  if (!user || !formData) return;
+
+  // Create new user object with spread to maintain other properties
+  const updatedUser: IUser = {
+    ...user,
+    profilePicture: newImage
+  };
+
+  const updatedFormData: IUser = {
+    ...formData,
+    profilePicture: newImage
+  };
+  
+  setUser(updatedUser);
+  setFormData(updatedFormData);
+  
+  // Update localStorage with new user data
+  if (isOwnProfile) {
+    try {
+      const currentUserData = localStorage.getItem('currentUser');
+      if (currentUserData) {
+        const parsedData = JSON.parse(currentUserData);
+        parsedData.profilePicture = newImage;
+        localStorage.setItem('currentUser', JSON.stringify(parsedData));
+      }
+    } catch (error) {
+      console.error('Error updating localStorage:', error);
+    }
   }
 };
 
@@ -319,16 +357,15 @@ const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaE
         <h2>Personal Information</h2>
         <div className="personal-content">
           <div className="avatar-section">
-            <div className="avatar-large">
-              {user.avatar ? (
-                <img src={user.avatar} alt={user.username} />
-              ) : (
-                <div className="avatar-placeholder">
-                  {user.username.charAt(0).toUpperCase()}
-                </div>
-              )}
-            </div>
-          </div>
+  <ProfilePicture
+    currentImage={user.profilePicture ?? undefined}
+    username={user.username}
+    onImageUpdate={handleImageUpdate}
+    isEditable={editMode && isOwnProfile}
+    size="large"
+  />
+</div>
+
           
           <div className="personal-details">
             {editMode && isOwnProfile ? (

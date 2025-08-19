@@ -6,6 +6,10 @@ import { getUserList, searchUsers } from '../../shared/config/api';
 import './home.css';
 
 interface User {
+  profilePicture: {
+    url: string;
+    public_id: string;
+  } | null;
   id: string;
   username: string;
   email: string;
@@ -134,15 +138,19 @@ function Home() {
                 <div className="users-grid">
                     {users.map(user => (
                         <div key={user.id} className="user-card">
-                            <div className="user-avatar">
-                                {user.avatar ? (
-                                    <img src={user.avatar} alt={user.username} />
-                                ) : (
-                                    <div className="avatar-placeholder">
-                                        {user.username.charAt(0).toUpperCase()}
-                                    </div>
-                                )}
-                            </div>
+<div className="user-avatar">
+  {user.profilePicture?.url ? (
+    <img 
+      src={user.profilePicture.url} 
+      alt={user.username}
+      className="profile-image"
+    />
+  ) : (
+    <div className="avatar-placeholder">
+      {user.username.charAt(0).toUpperCase()}
+    </div>
+  )}
+</div>
                             
                             <h3 className="user-name">{user.username}</h3>
                             <p className="user-email">{user.email}</p>
