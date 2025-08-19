@@ -9,12 +9,12 @@ const AuthGuard = ({ children }: AuthGuardProps) => {
     const token = localStorage.getItem("token");
     const currentUser = localStorage.getItem("currentUser");
 
-    // If user is NOT logged in (no token and no user), redirect to login
+    // redirect to login if no token
     if (!token || !currentUser) {
         return <Navigate to="/login" replace />;
     } 
-    
-    // If user is logged in, allow access to protected route
+
+    // allow access to protected route if token and user exist
     return children;
 };
 

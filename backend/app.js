@@ -8,7 +8,7 @@ const app = express();
 // Middleware
 app.use(
   cors({
-    origin: "http://localhost:5173", // Your frontend URL
+    origin: "http://localhost:5173", // frontend URL
     credentials: true,
   })
 );
@@ -16,6 +16,6 @@ app.use(express.json());
 
 // Routes
 app.use("/api/auth", authRoutes);
-app.use("/api/users", userRoutes); // Make sure to include the user routes
+app.use("/api/users", userRoutes); // including the user routes
 
 export default app;

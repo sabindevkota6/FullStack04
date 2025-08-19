@@ -20,7 +20,6 @@ function App() {
         <Route path="/register" element={<LoginGuard><Register /></LoginGuard>} />
         <Route path="/home" element={<AuthGuard><Home /></AuthGuard>} />
         <Route path="/profile" element={<AuthGuard><Profile /></AuthGuard>} />
-        {/* New route for viewing other users' profiles */}
         <Route path="/user/:userId" element={<AuthGuard><Profile /></AuthGuard>} />
       </Routes>
       

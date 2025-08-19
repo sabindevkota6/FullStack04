@@ -1,5 +1,5 @@
 body {
-  background-color: #001d29 !important; /* Dark navy background */
+  background-color: #001d29 !important;
 }
 
 .login-container {
@@ -28,7 +28,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  position: relative; /* needed for absolute error positioning */
+  position: relative;
 }
 
 .form-field label {
@@ -46,16 +46,15 @@ body {
   transition: border-color 0.2s ease;
 }
 
-/* absolute error text – won’t push down layout */
 .error-text {
   position: absolute;
   left: 0;
-  top: calc(100% + 0.25rem); /* just below the input */
+  top: calc(100% + 0.25rem);
   font-size: 0.875rem;
   line-height: 1.2;
   color: #e50808;
   z-index: 10;
-  pointer-events: none; /* avoid blocking input focus/click */
+  pointer-events: none;
 }
 
 .submit-button {

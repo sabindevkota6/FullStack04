@@ -71,7 +71,6 @@ const Profile: React.FC = () => {
   const [isOwnProfile, setIsOwnProfile] = useState(true);
 
   useEffect(() => {
-    // Get current user data
     const userString = localStorage.getItem('currentUser');
     if (userString) {
       try {
@@ -86,7 +85,6 @@ const Profile: React.FC = () => {
   }, [userId]);
 
   useEffect(() => {
-    // Determine if this is the current user's own profile
     if (currentUser && user) {
       setIsOwnProfile(!userId || userId === currentUser._id);
     }
@@ -97,10 +95,8 @@ const Profile: React.FC = () => {
     try {
       let res;
       if (userId) {
-        // Fetch specific user by ID
         res = await axios.get(`/users/${userId}`);
       } else {
-        // Fetch current user's profile
         res = await axios.get("/users/profile");
       }
       setUser(res.data);
@@ -121,7 +117,6 @@ const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaE
     const parentKey = parent as keyof IUser;
     const currentParent = formData[parentKey];
     
-    // Check if parent exists and is an object, if not create an empty object
     if (currentParent && typeof currentParent === 'object' && !Array.isArray(currentParent)) {
       setFormData({
         ...formData,
@@ -131,7 +126,6 @@ const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaE
         }
       });
     } else {
-      // Create the parent object if it doesn't exist
       setFormData({
         ...formData,
         [parent]: {
@@ -147,7 +141,6 @@ const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaE
 const handleImageUpdate = (newImage: { url: string; public_id: string } | null) => {
   if (!user || !formData) return;
 
-  // Create new user object with spread to maintain other properties
   const updatedUser: IUser = {
     ...user,
     profilePicture: newImage
@@ -160,8 +153,7 @@ const handleImageUpdate = (newImage: { url: string; public_id: string } | null) 
   
   setUser(updatedUser);
   setFormData(updatedFormData);
-  
-  // Update localStorage with new user data
+
   if (isOwnProfile) {
     try {
       const currentUserData = localStorage.getItem('currentUser');
@@ -209,7 +201,6 @@ const handleImageUpdate = (newImage: { url: string; public_id: string } | null) 
     });
   };
 
-  // Education handlers
   const addEducation = () => {
     if (!formData) return;
     const newEducation: Education = {
@@ -240,7 +231,6 @@ const handleImageUpdate = (newImage: { url: string; public_id: string } | null) 
     setFormData({ ...formData, education: newEducation });
   };
 
-  // Experience handlers
   const addExperience = () => {
     if (!formData) return;
     const newExperience: Experience = {
@@ -271,7 +261,6 @@ const handleImageUpdate = (newImage: { url: string; public_id: string } | null) 
     setFormData({ ...formData, experiences: newExperiences });
   };
 
-  // Certificate handlers
   const addCertificate = () => {
     if (!formData) return;
     const newCertificate: Certificate = {
@@ -332,7 +321,6 @@ const handleImageUpdate = (newImage: { url: string; public_id: string } | null) 
 
   return (
     <div className="profile-page">
-      {/* Header */}
       <div className="profile-header">
         <h1>{isOwnProfile ? 'My Profile' : `${user.username}'s Profile`}</h1>
         {isOwnProfile && (
@@ -352,7 +340,6 @@ const handleImageUpdate = (newImage: { url: string; public_id: string } | null) 
         )}
       </div>
 
-      {/* Personal Section */}
       <div className="section">
         <h2>Personal Information</h2>
         <div className="personal-content">
@@ -488,7 +475,6 @@ const handleImageUpdate = (newImage: { url: string; public_id: string } | null) 
         </div>
       </div>
 
-      {/* Education Section */}
       <div className="section">
         <h2>Education & Certifications</h2>
         <div className="subsection">
@@ -676,7 +662,6 @@ const handleImageUpdate = (newImage: { url: string; public_id: string } | null) 
         </div>
       </div>
 
-      {/* Experience Section */}
       <div className="section">
         <h2>Professional Experience & Stats</h2>
         <div className="subsection">

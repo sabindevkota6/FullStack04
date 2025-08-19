@@ -1,5 +1,3 @@
-/* frontend/src/features/home/home.css - Basic enhanced styles with larger avatar and username */
-
 body {
   background-color: #212628;
 }
@@ -104,6 +102,24 @@ body {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
 }
 
+.user-avatar {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 1.5rem auto;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #f0f0f0;
+  position: relative;
+  border: 3px solid #ff5c1c;
+}
+
+.profile-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 .avatar-placeholder {
   width: 100%;
   height: 100%;
@@ -114,6 +130,9 @@ body {
   color: #000;
   font-size: 3rem;
   font-weight: bold;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .user-name {
@@ -225,33 +244,6 @@ body {
   margin-bottom: 2rem;
 }
 
-.user-avatar {
-  width: 100px;
-  height: 100px;
-  margin: 0 auto;
-  border-radius: 50%;
-  overflow: hidden;
-  background-color: #f0f0f0;
-}
-
-.profile-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.avatar-placeholder {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #2196f3;
-  color: white;
-  font-size: 2rem;
-  font-weight: bold;
-}
-/* Responsive styling */
 @media (max-width: 768px) {
   .home-container {
     padding: 1.5rem;

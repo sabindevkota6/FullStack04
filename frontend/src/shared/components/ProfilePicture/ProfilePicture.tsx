@@ -1,4 +1,3 @@
-// frontend/src/shared/components/ProfilePicture/ProfilePicture.tsx
 import React, { useState, useRef } from 'react';
 import { uploadProfilePicture, deleteProfilePicture } from '../../config/api';
 import { toast } from 'react-toastify';
@@ -29,14 +28,12 @@ const ProfilePicture: React.FC<ProfilePictureProps> = ({
     const file = event.target.files?.[0];
     if (!file) return;
 
-    // Validate file type
     const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
     if (!allowedTypes.includes(file.type)) {
       toast.error('Please select a valid image file (JPEG, PNG, or WEBP)');
       return;
     }
 
-    // Validate file size (5MB)
     if (file.size > 5 * 1024 * 1024) {
       toast.error('File size must be less than 5MB');
       return;

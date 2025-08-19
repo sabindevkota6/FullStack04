@@ -10,7 +10,6 @@ const Navigation = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   
-  // Check authentication status when component mounts or location changes
   useEffect(() => {
     const token = localStorage.getItem('token');
     const userString = localStorage.getItem('currentUser');
@@ -18,6 +17,7 @@ const Navigation = () => {
     if (token && userString) {
       try {
         const userData = JSON.parse(userString);
+        console.log('Navigation user data:', userData);
         setCurrentUser(userData);
         setIsAuthenticated(true);
       } catch (error) {
@@ -30,6 +30,30 @@ const Navigation = () => {
       setCurrentUser(null);
     }
   }, [location]);
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const userString = localStorage.getItem('currentUser');
+      if (userString) {
+        try {
+          const userData = JSON.parse(userString);
+          setCurrentUser(userData);
+        } catch (error) {
+          console.error('Error parsing updated user data:', error);
+        }
+      }
+    };
+
+
+    window.addEventListener('storage', handleStorageChange);
+    
+    window.addEventListener('userDataUpdated', handleStorageChange);
+    
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('userDataUpdated', handleStorageChange);
+    };
+  }, []);
   
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -85,14 +109,29 @@ const Navigation = () => {
         <div className={`nav-user ${mobileMenuOpen ? 'mobile-open' : ''}`}>
           {isAuthenticated && currentUser ? (
             <div className="user-info">
-              <div className="user-avatar">
-                {currentUser.avatar ? (
-                  <img src={currentUser.avatar} alt={currentUser.username} />
-                ) : (
-                  <div className="avatar-placeholder">
-                    {currentUser.username ? currentUser.username.charAt(0).toUpperCase() : 'U'}
-                  </div>
-                )}
+              <div className="nav-user-avatar">
+                {currentUser.profilePicture?.url ? (
+                  <img 
+                    src={currentUser.profilePicture.url} 
+                    alt={currentUser.username}
+                    className="nav-profile-image"
+                    onError={(e) => {
+                      console.error('Failed to load nav image for user:', currentUser.username);
+                      // Hide image and show placeholder on error
+                      e.currentTarget.style.display = 'none';
+                      const placeholder = e.currentTarget.nextElementSibling as HTMLElement;
+                      if (placeholder) {
+                        placeholder.style.display = 'flex';
+                      }
+                    }}
+                  />
+                ) : null}
+                <div 
+                  className="nav-avatar-placeholder"
+                  style={{ display: currentUser.profilePicture?.url ? 'none' : 'flex' }}
+                >
+                  {currentUser.username ? currentUser.username.charAt(0).toUpperCase() : 'U'}
+                </div>
               </div>
               
               <span className="username">{currentUser.username}</span>
@@ -103,11 +142,9 @@ const Navigation = () => {
             </div>
           ) : (
             <div className="guest-info">
-              (
-                <button className="auth-button login" onClick={handleLogin}>
-                  Login
-                </button>
-              )
+              <button className="auth-button login" onClick={handleLogin}>
+                Login
+              </button>
             </div>
           )}
         </div>

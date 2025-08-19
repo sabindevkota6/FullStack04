@@ -10,7 +10,6 @@ body {
   color: #fff;
 }
 
-/* Header */
 .profile-header {
   display: flex;
   justify-content: space-between;
@@ -61,7 +60,6 @@ body {
   color: #fff;
 }
 
-/* Add visual indicator for viewing other profiles */
 .profile-header.viewing-other {
   border-bottom-color: #4a90e2;
 }
@@ -70,7 +68,6 @@ body {
   color: #4a90e2;
 }
 
-/* Sections */
 .section {
   background-color: #000;
   border-radius: 12px;
@@ -126,7 +123,6 @@ body {
   color: #fff;
 }
 
-/* Personal Section */
 .personal-content {
   display: flex;
   gap: 2rem;
@@ -167,7 +163,6 @@ body {
   flex: 1;
 }
 
-/* Forms */
 .form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -231,7 +226,6 @@ body {
   font-weight: bold;
 }
 
-/* Display */
 .display-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -285,7 +279,6 @@ body {
   border: 1px solid rgba(255, 92, 28, 0.3);
 }
 
-/* Items */
 .items {
   display: flex;
   flex-direction: column;
@@ -348,7 +341,6 @@ body {
   text-decoration: underline;
 }
 
-/* Edit Items */
 .edit-items {
   display: flex;
   flex-direction: column;
@@ -391,7 +383,6 @@ body {
   background-color: #cc0000;
 }
 
-/* Stats */
 .stats-display {
   display: flex;
   gap: 2rem;
@@ -475,7 +466,6 @@ body {
   padding: 1.5rem;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .profile-page {
     padding: 1rem;

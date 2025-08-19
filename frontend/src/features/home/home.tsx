@@ -1,12 +1,10 @@
-// frontend/src/features/home/home.tsx - Updated with profile navigation
-
 import { useState, useEffect, type ChangeEvent, type FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getUserList, searchUsers } from '../../shared/config/api';
 import './home.css';
 
 interface User {
-  profilePicture: {
+  profilePicture?: {
     url: string;
     public_id: string;
   } | null;
@@ -33,7 +31,6 @@ function Home() {
     const [currentUser, setCurrentUser] = useState<any>(null);
 
     useEffect(() => {
-        // Load current user data
         const userString = localStorage.getItem('currentUser');
         if (userString) {
             try {
@@ -44,7 +41,6 @@ function Home() {
             }
         }
         
-        // Load initial user list
         fetchUsers();
     }, []);
 
@@ -54,6 +50,7 @@ function Home() {
         
         try {
             const response = await getUserList();
+            console.log('Fetched users:', response.data);
             setUsers(response.data);
         } catch (error) {
             console.error('Error fetching users:', error);
@@ -71,7 +68,6 @@ function Home() {
         e.preventDefault();
         
         if (!searchQuery.trim()) {
-            // If search is empty, fetch all users
             fetchUsers();
             return;
         }
@@ -90,13 +86,10 @@ function Home() {
         }
     };
 
-    // Handle connect button click
     const handleConnectClick = (userId: string) => {
         if (currentUser && userId === currentUser._id) {
-            // If it's the current user, go to their own profile
             navigate('/profile');
         } else {
-            // If it's another user, go to their profile view
             navigate(`/user/${userId}`);
         }
     };
@@ -138,19 +131,26 @@ function Home() {
                 <div className="users-grid">
                     {users.map(user => (
                         <div key={user.id} className="user-card">
-<div className="user-avatar">
-  {user.profilePicture?.url ? (
-    <img 
-      src={user.profilePicture.url} 
-      alt={user.username}
-      className="profile-image"
-    />
-  ) : (
-    <div className="avatar-placeholder">
-      {user.username.charAt(0).toUpperCase()}
-    </div>
-  )}
-</div>
+                            <div className="user-avatar">
+                                {user.profilePicture?.url ? (
+                                    <img 
+                                        src={user.profilePicture.url} 
+                                        alt={user.username}
+                                        className="profile-image"
+                                        onError={(e) => {
+                                            console.error('Failed to load image for user:', user.username);
+                                            e.currentTarget.style.display = 'none';
+                                            e.currentTarget.nextElementSibling?.setAttribute('style', 'display: flex');
+                                        }}
+                                    />
+                                ) : null}
+                                <div 
+                                    className="avatar-placeholder"
+                                    style={{ display: user.profilePicture?.url ? 'none' : 'flex' }}
+                                >
+                                    {user.username.charAt(0).toUpperCase()}
+                                </div>
+                            </div>
                             
                             <h3 className="user-name">{user.username}</h3>
                             <p className="user-email">{user.email}</p>

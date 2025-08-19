@@ -1,5 +1,3 @@
-/* frontend/src/shared/components/ProfilePicture/ProfilePicture.css */
-
 .profile-picture-container {
   position: relative;
   display: inline-block;
@@ -17,7 +15,6 @@
   border-color: #ff0000;
 }
 
-/* Size variants */
 .profile-picture-small .profile-picture-wrapper {
   width: 60px;
   height: 60px;
@@ -65,7 +62,6 @@
   font-size: 4.5rem;
 }
 
-/* Overlay for editable mode */
 .profile-picture-overlay {
   position: absolute;
   top: 0;
@@ -133,7 +129,6 @@
   display: none;
 }
 
-/* Small size adjustments */
 .profile-picture-small .picture-action-btn {
   font-size: 0.8rem;
   padding: 0.25rem;
@@ -143,7 +138,6 @@
   font-size: 1rem;
 }
 
-/* Large size adjustments */
 .profile-picture-large .picture-action-btn {
   font-size: 1.5rem;
   padding: 0.75rem;

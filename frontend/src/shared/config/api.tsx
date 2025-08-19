@@ -46,13 +46,14 @@ export const deleteEducation = (id: string) => {
 
 // User search/list endpoints
 export const getUserList = () => {
-  return axiosInstance.get('/users'); // This should point to /users, not /auth/users
+  return axiosInstance.get('/users');
 };
 
 export const searchUsers = (query: string) => {
-  return axiosInstance.get(`/users/search?query=${query}`); // Use /users/search, not /auth/search
+  return axiosInstance.get(`/users/search?query=${query}`); 
 };
 
+// Profile Picture endpoints
 export const uploadProfilePicture = (imageFile: File) => {
   const formData = new FormData();
   formData.append('image', imageFile);

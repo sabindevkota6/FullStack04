@@ -77,7 +77,7 @@ export async function getUserList(req, res) {
       username: user.username,
       email: user.email,
       bio: user.bio,
-      avatar: user.profilePicture?.url, // UPDATED to use profilePicture.url
+      profilePicture: user.profilePicture, // UPDATED to use profilePicture.url
       skills: user.skills,
       location: user.contact ? user.contact.location : null,
       quickStats: user.quickStats,
@@ -99,7 +99,7 @@ export const getAllUsers = async (req, res) => {
       username: user.username,
       email: user.email,
       bio: user.bio,
-      avatar: user.profilePicture?.url, // UPDATED to use profilePicture.url
+      profilePicture: user.profilePicture, // UPDATED to use profilePicture.url
       skills: user.skills,
       location: user.contact ? user.contact.location : null,
       quickStats: user.quickStats,
@@ -132,7 +132,7 @@ export const searchUsers = async (req, res) => {
       username: user.username,
       email: user.email,
       bio: user.bio,
-      avatar: user.profilePicture?.url, // UPDATED to use profilePicture.url
+      profilePicture: user.profilePicture, // UPDATED to use profilePicture.url
       skills: user.skills,
       location: user.contact ? user.contact.location : null,
       quickStats: user.quickStats,
