@@ -1,4 +1,4 @@
-import React from "react";
+//import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
@@ -39,6 +39,7 @@ function Register(){
   };
 
   return (
+    <div className="register-wrapper">
     <div className="register-container">
       <h1>Register Page</h1>
 
@@ -50,7 +51,7 @@ function Register(){
       >
         <div className="form-field">
           <label className="label-tag" htmlFor="username">
-            Username:
+            Username
           </label>
           <input
             id="username"
@@ -72,7 +73,7 @@ function Register(){
 
         <div className="form-field">
           <label className="label-tag" htmlFor="email">
-            Email:
+            Email
           </label>
           <input
             id="email"
@@ -94,7 +95,7 @@ function Register(){
 
         <div className="form-field">
           <label className="label-tag" htmlFor="password">
-            Password:
+            Password
           </label>
           <input
             id="password"
@@ -127,6 +128,7 @@ function Register(){
       <p className="login-link">
         Already have an account? <Link to="/login">Login here</Link>
       </p>
+    </div>
     </div>
   );
 }

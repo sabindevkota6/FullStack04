@@ -36,8 +36,8 @@ body {
 
 .form-field label {
   color: #ff5c1c;
-  font-weight: 600;
-  font-size: 0.9rem;
+  font-weight: 600 !important;
+  font-size: 100% I !important;
 }
 
 .input-tag {

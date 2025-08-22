@@ -47,7 +47,7 @@ function Login() {
       <form onSubmit={handleSubmit(onSubmit)} className="login-form" noValidate>
         <div className="form-field">
           <label className="label-tag" htmlFor="username">
-            Username:
+            Username
           </label>
           <input
             id="username"
@@ -68,7 +68,7 @@ function Login() {
 
         <div className="form-field">
           <label className="label-tag" htmlFor="password">
-            Password:
+            Password
           </label>
           <input
             id="password"
